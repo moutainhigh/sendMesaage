@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.SystemPostRoleMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.SystemPostRole">
+        <id column="SYS_POST_ROLE_ID" property="sysPostRoleId" jdbcType="DECIMAL"/>
+        <result column="SYS_ROLE_ID" property="sysRoleId" jdbcType="DECIMAL"/>
+        <result column="SYS_POST_ID" property="sysPostId" jdbcType="DECIMAL"/>
+        <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP"/>
+        <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_post_role
+    where SYS_POST_ROLE_ID = #{sysPostRoleId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.SystemPostRole">
+    insert into system_post_role (SYS_POST_ROLE_ID, SYS_ROLE_ID, SYS_POST_ID, 
+      EFF_DATE, EXP_DATE, STATUS_CD, 
+      STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+      UPDATE_DATE, UPDATE_STAFF)
+    values (#{sysPostRoleId,jdbcType=DECIMAL}, #{sysRoleId,jdbcType=DECIMAL}, #{sysPostId,jdbcType=DECIMAL}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{statusCd,jdbcType=VARCHAR}, 
+      #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.SystemPostRole">
+    update system_post_role
+    set SYS_ROLE_ID = #{sysRoleId,jdbcType=DECIMAL},
+      SYS_POST_ID = #{sysPostId,jdbcType=DECIMAL},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where SYS_POST_ROLE_ID = #{sysPostRoleId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_POST_ROLE_ID, SYS_ROLE_ID, SYS_POST_ID, EFF_DATE, EXP_DATE, STATUS_CD, 
+    STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_post_role
+    where SYS_POST_ROLE_ID = #{sysPostRoleId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_POST_ROLE_ID, SYS_ROLE_ID, SYS_POST_ID, EFF_DATE, EXP_DATE, STATUS_CD,
+    STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_post_role
+    where SYS_ROLE_ID = #{sysRoleId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectBySysPortId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_POST_ROLE_ID, SYS_ROLE_ID, SYS_POST_ID, EFF_DATE, EXP_DATE, STATUS_CD,
+    STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_post_role
+    where SYS_POST_ID = #{sysPortId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select SYS_POST_ROLE_ID, SYS_ROLE_ID, SYS_POST_ID, EFF_DATE, EXP_DATE, STATUS_CD, 
+    STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_post_role
+  </select>
+</mapper>

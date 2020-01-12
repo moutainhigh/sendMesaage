@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.order.dao.OrderMapper" >
+
+<select id="queryOrderList"  parameterType="java.util.HashMap" resultType="map">
+select TEMPLATE_ORDER_ID "templateOrderId",
+	REMIND_ORDER_ID   "remindOrderId",
+	CREATED_DATE      "createdDate"     ,
+	STATE             "state"            ,
+	STATE_DATE        "stateDate"       ,
+	OUT_REMIND_TEXT   "outRemindText"  ,
+	BATCH_ID          "batchId"         ,
+	REMIND_SERV_ID    "remindServId"   ,
+	ACC_NBR           "accNbr"
+	from B_REMIND_TEMPLATE_ORDER
+	<where>
+		<if test="state != null">
+			state = #{state}
+		</if>
+		<if test="mod != null and  mod !='' " >
+			and MOD(REMIND_SERV_ID, #{mod}) = #{modValue}
+		</if>
+		<choose>
+			<when test="remindCodeFlag=='in'">
+				<!--and REMIND_CODE in (${remindCode})-->
+				and (out_remind_text like '%JLJF000023%'
+				or out_remind_text like '%JLJF000016%')
+			</when>
+			<when test="remindCodeFlag =='notin'">
+				<!--and REMIND_CODE not in (${remindCode})-->
+				and out_remind_text not like '%JLJF000023%'
+				and out_remind_text not like '%JLJF000016%'
+			</when>
+		</choose>
+	</where>
+	limit 0, 1000
+</select>
+
+	
+<update id="updateOrderState"	parameterType="map">
+	update B_REMIND_TEMPLATE_ORDER
+	set STATE=#{state},STATE_DATE=sysdate()
+	<if test="remark != null">
+		,remark = #{remark}
+	</if>
+	where TEMPLATE_ORDER_ID = #{templateOrderId}
+</update>
+
+
+<insert id="addOrder" parameterType="map">
+	insert into B_REMIND_TEMPLATE_ORDER
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="templateOrderId != null" >
+			TEMPLATE_ORDER_ID,
+		</if>
+		<if test="remindOrderId != null" >
+			REMIND_ORDER_ID,
+		</if>
+		<if test="createdDate != null" >
+			CREATED_DATE,
+		</if>
+		<if test="state != null" >
+			STATE,
+		</if>
+		<if test="stateDate != null" >
+			STATE_DATE,
+		</if>
+		<if test="outRemindText != null" >
+			OUT_REMIND_TEXT,
+		</if>
+		<if test="batchId != null" >
+			BATCH_ID,
+		</if>
+		<if test="remindServId != null" >
+			REMIND_SERV_ID,
+		</if>
+		<if test="accNbr != null" >
+			ACC_NBR,
+		</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="templateOrderId != null" >
+			#{templateOrderId},
+		</if>
+		<if test="remindOrderId != null" >
+			#{remindOrderId},
+		</if>
+		<if test="createdDate != null" >
+			#{createdDate},
+		</if>
+		<if test="state != null" >
+			#{state},
+		</if>
+		<if test="stateDate != null" >
+			#{stateDate},
+		</if>
+		<if test="outRemindText != null" >
+			#{outRemindText},
+		</if>
+		<if test="batchId != null" >
+			#{batchId},
+		</if>
+		<if test="remindServId != null" >
+			#{remindServId},
+		</if>
+		<if test="accNbr != null" >
+			#{accNbr},
+		</if>
+	</trim>
+</insert>
+	
+
+ 
+  
+</mapper>

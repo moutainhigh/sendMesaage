@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.FuncMenuMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.FuncMenu">
+        <id column="MENU_ID" property="menuId" jdbcType="DECIMAL"/>
+        <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR"/>
+        <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR"/>
+        <result column="MENU_LEVEL" property="menuLevel" jdbcType="DECIMAL"/>
+        <result column="MENU_INDEX" property="menuIndex" jdbcType="DECIMAL"/>
+        <result column="PAR_MENU_ID" property="parMenuId" jdbcType="DECIMAL"/>
+        <result column="MENU_DESC" property="menuDesc" jdbcType="VARCHAR"/>
+        <result column="URL_ADDR" property="urlAddr" jdbcType="VARCHAR"/>
+        <result column="REGION_ID" property="regionId" jdbcType="DECIMAL"/>
+        <result column="SYSTEM_INFO_ID" property="systemInfoId" jdbcType="DECIMAL"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from func_menu
+    where MENU_ID = #{menuId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.FuncMenu">
+    insert into func_menu (MENU_ID, MENU_NAME, MENU_TYPE, 
+      MENU_LEVEL, MENU_INDEX, PAR_MENU_ID, 
+      MENU_DESC, URL_ADDR, REGION_ID, 
+      SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, 
+      CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+      UPDATE_STAFF)
+    values (#{menuId,jdbcType=DECIMAL}, #{menuName,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR}, 
+      #{menuLevel,jdbcType=DECIMAL}, #{menuIndex,jdbcType=DECIMAL}, #{parMenuId,jdbcType=DECIMAL}, 
+      #{menuDesc,jdbcType=VARCHAR}, #{urlAddr,jdbcType=VARCHAR}, #{regionId,jdbcType=DECIMAL}, 
+      #{systemInfoId,jdbcType=DECIMAL}, #{statusCd,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateStaff,jdbcType=DECIMAL})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.FuncMenu">
+    update func_menu
+    set MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      MENU_LEVEL = #{menuLevel,jdbcType=DECIMAL},
+      MENU_INDEX = #{menuIndex,jdbcType=DECIMAL},
+      PAR_MENU_ID = #{parMenuId,jdbcType=DECIMAL},
+      MENU_DESC = #{menuDesc,jdbcType=VARCHAR},
+      URL_ADDR = #{urlAddr,jdbcType=VARCHAR},
+      REGION_ID = #{regionId,jdbcType=DECIMAL},
+      SYSTEM_INFO_ID = #{systemInfoId,jdbcType=DECIMAL},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where MENU_ID = #{menuId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select MENU_ID, MENU_NAME, MENU_TYPE, MENU_LEVEL, MENU_INDEX, PAR_MENU_ID, MENU_DESC, 
+    URL_ADDR, REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+    UPDATE_DATE, UPDATE_STAFF
+    from func_menu
+    where MENU_ID = #{menuId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByParMenuId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select MENU_ID, MENU_NAME, MENU_TYPE, MENU_LEVEL, MENU_INDEX, PAR_MENU_ID, MENU_DESC,
+    URL_ADDR, REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF,
+    UPDATE_DATE, UPDATE_STAFF
+    from func_menu
+    where PAR_MENU_ID = #{parMenuId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select MENU_ID, MENU_NAME, MENU_TYPE, MENU_LEVEL, MENU_INDEX, PAR_MENU_ID, MENU_DESC,
+    URL_ADDR, REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+    UPDATE_DATE, UPDATE_STAFF
+    from func_menu
+  </select>
+</mapper>

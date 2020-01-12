@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:spring-zext-web="http://www.asiainfo-linkage.com/schema/spring-zext-web"
+	   xmlns:spring-zext-service="http://www.asiainfo-linkage.com/schema/spring-zext-service"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.asiainfo-linkage.com/schema/spring-zext-web http://www.asiainfo-linkage.com/schema/spring-zext-web.xsd
+        http://www.asiainfo-linkage.com/schema/spring-zext-service http://www.asiainfo-linkage.com/schema/spring-zext-service.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:config/jdbc.properties" />
+	</bean>
+	<!-- 注册解析注解的处理器  -->
+	<aop:config proxy-target-class="true"></aop:config>
+	<!-- 启用AspectJ对Annotation的支持 -->
+	<aop:aspectj-autoproxy/>
+	<context:component-scan base-package="com.asiainfo" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="nppmDataSource" />
+		&lt;!&ndash; 自动扫描mapping.xml文件 &ndash;&gt;
+		<property name="mapperLocations" value="classpath*:com/asiainfo/bill/dao/*.xml"></property>
+		<property name="configLocation"  value="classpath:config/mybatis-config.xml"/>
+	</bean>
+	&lt;!&ndash; DAO接口所在包名，Spring会自动查找其下的类 &ndash;&gt;
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.asiainfo.bill" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	&lt;!&ndash; (事务管理)transaction manager, use JtaTransactionManager for global tx &ndash;&gt;
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="nppmDataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />-->
+
+	<bean id="dbPasswordCallback" class="com.asiainfo.common.utils.DbPasswordCallback" lazy-init="true"/>
+	<bean id="parentSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="maxActive" value="20" />
+		<property name="initialSize" value="3" />
+		<property name="minIdle" value="3" />
+		<!-- maxWait获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- timeBetweenEvictionRunsMillis间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- minEvictableIdleTimeMillis一个连接在池中最小空闲的时间，单位是毫秒-->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'z'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+
+	<!--<bean id="nppmDataSource" parent="parentSource">
+		<property name="connectionProperties"  value="password=${jdbc.password}"/>
+		<property name="passwordCallback" ref="dbPasswordCallback"/>
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		&lt;!&ndash;
+		<property name="password" value="${jdbc.password}" />
+		 &ndash;&gt;
+	</bean>-->
+
+	<!--<tx:advice id="syncTxAdvice" transaction-manager="transactionManager" >
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" no-rollback-for="" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="list*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="page*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="syncPointCut" expression="execution(* com.asiainfo.bill.service.*.*(..))" />
+		<aop:advisor advice-ref="syncTxAdvice" pointcut-ref="syncPointCut" />
+	</aop:config>-->
+
+
+	<!--plca数据源配置-->
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory-plca" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="plcaDataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath*:com/asiainfo/order/dao/*.xml"></property>
+		<property name="configLocation"  value="classpath:config/mybatis-config.xml"/>
+	</bean>
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.asiainfo.order" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory-plca"></property>
+	</bean>
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager-plca"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="plcaDataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager-plca" />
+
+
+	<bean id="plcaDataSource" parent="parentSource">
+		<property name="connectionProperties"  value="password=${jdbc.plca.password}"/>
+		<property name="passwordCallback" ref="dbPasswordCallback"/>
+		<property name="url" value="${jdbc.plca.url}" />
+		<property name="username" value="${jdbc.plca.username}" />
+		<!--
+		<property name="password" value="${jdbc.password}" />
+		 -->
+	</bean>
+
+	<tx:advice id="plcaTxAdvice" transaction-manager="transactionManager-plca" >
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" no-rollback-for="" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="list*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="page*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="plcaPointCut" expression="execution(* com.asiainfo.order.service.*.*(..))" />
+		<aop:advisor advice-ref="plcaTxAdvice" pointcut-ref="plcaPointCut" />
+	</aop:config>
+
+</beans>

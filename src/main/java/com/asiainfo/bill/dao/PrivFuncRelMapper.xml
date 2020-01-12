@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.PrivFuncRelMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.PrivFuncRel">
+        <id column="PRIV_FUNC_REL_ID" property="privFuncRelId" jdbcType="DECIMAL"/>
+        <result column="PRIV_ID" property="privId" jdbcType="DECIMAL"/>
+        <result column="PRIV_REF_TYPE" property="privRefType" jdbcType="VARCHAR"/>
+        <result column="PRIV_REF_ID" property="privRefId" jdbcType="VARCHAR"/>
+        <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP"/>
+        <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP"/>
+        <result column="SYSTEM_INFO_ID" property="systemInfoId" jdbcType="DECIMAL"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from priv_func_rel
+    where PRIV_FUNC_REL_ID = #{privFuncRelId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.PrivFuncRel">
+    insert into priv_func_rel (PRIV_FUNC_REL_ID, PRIV_ID, PRIV_REF_TYPE, 
+      PRIV_REF_ID, EFF_DATE, EXP_DATE, 
+      SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, 
+      CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+      UPDATE_STAFF)
+    values (#{privFuncRelId,jdbcType=DECIMAL}, #{privId,jdbcType=DECIMAL}, #{privRefType,jdbcType=VARCHAR}, 
+      #{privRefId,jdbcType=VARCHAR}, #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, 
+      #{systemInfoId,jdbcType=DECIMAL}, #{statusCd,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateStaff,jdbcType=DECIMAL})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.PrivFuncRel">
+    update priv_func_rel
+    set PRIV_ID = #{privId,jdbcType=DECIMAL},
+      PRIV_REF_TYPE = #{privRefType,jdbcType=VARCHAR},
+      PRIV_REF_ID = #{privRefId,jdbcType=VARCHAR},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      SYSTEM_INFO_ID = #{systemInfoId,jdbcType=DECIMAL},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where PRIV_FUNC_REL_ID = #{privFuncRelId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select PRIV_FUNC_REL_ID, PRIV_ID, PRIV_REF_TYPE, PRIV_REF_ID, EFF_DATE, EXP_DATE, 
+    SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from priv_func_rel
+    where PRIV_FUNC_REL_ID = #{privFuncRelId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select PRIV_FUNC_REL_ID, PRIV_ID, PRIV_REF_TYPE, PRIV_REF_ID, EFF_DATE, EXP_DATE, 
+    SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from priv_func_rel
+  </select>
+    <select id="selectByPrivId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select PRIV_FUNC_REL_ID, PRIV_ID, PRIV_REF_TYPE, PRIV_REF_ID, EFF_DATE, EXP_DATE,
+    SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from priv_func_rel
+    where PRIV_ID = #{privId,jdbcType=DECIMAL}
+  </select>
+</mapper>

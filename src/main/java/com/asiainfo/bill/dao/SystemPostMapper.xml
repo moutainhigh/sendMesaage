@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.SystemPostMapper" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.SystemPost" >
+    <id column="SYS_POST_ID" property="sysPostId" jdbcType="DECIMAL" />
+    <result column="SYS_POST_CODE" property="sysPostCode" jdbcType="VARCHAR" />
+    <result column="SYS_POST_NAME" property="sysPostName" jdbcType="VARCHAR" />
+    <result column="SYS_POST_TYPE" property="sysPostType" jdbcType="VARCHAR" />
+    <result column="SYS_POST_DESC" property="sysPostDesc" jdbcType="VARCHAR" />
+    <result column="INIT_FLAG" property="initFlag" jdbcType="DECIMAL" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="REGION_ID" property="regionId" jdbcType="DECIMAL" />
+    <result column="SYSTEM_INFO_ID" property="systemInfoId" jdbcType="DECIMAL" />
+    <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR" />
+    <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_post
+    where SYS_POST_ID = #{sysPostId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.asiainfo.bill.model.SystemPost" >
+    insert into system_post (SYS_POST_ID, SYS_POST_CODE, SYS_POST_NAME, 
+      SYS_POST_TYPE, SYS_POST_DESC, INIT_FLAG, 
+      ORG_ID, REGION_ID, SYSTEM_INFO_ID, 
+      STATUS_CD, STATUS_DATE, CREATE_DATE, 
+      CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+      )
+    values (#{sysPostId,jdbcType=DECIMAL}, #{sysPostCode,jdbcType=VARCHAR}, #{sysPostName,jdbcType=VARCHAR}, 
+      #{sysPostType,jdbcType=VARCHAR}, #{sysPostDesc,jdbcType=VARCHAR}, #{initFlag,jdbcType=DECIMAL}, 
+      #{orgId,jdbcType=DECIMAL}, #{regionId,jdbcType=DECIMAL}, #{systemInfoId,jdbcType=DECIMAL}, 
+      #{statusCd,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createStaff,jdbcType=DECIMAL}, #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.SystemPost" >
+    update system_post
+    set SYS_POST_CODE = #{sysPostCode,jdbcType=VARCHAR},
+      SYS_POST_NAME = #{sysPostName,jdbcType=VARCHAR},
+      SYS_POST_TYPE = #{sysPostType,jdbcType=VARCHAR},
+      SYS_POST_DESC = #{sysPostDesc,jdbcType=VARCHAR},
+      INIT_FLAG = #{initFlag,jdbcType=DECIMAL},
+      ORG_ID = #{orgId,jdbcType=DECIMAL},
+      REGION_ID = #{regionId,jdbcType=DECIMAL},
+      SYSTEM_INFO_ID = #{systemInfoId,jdbcType=DECIMAL},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where SYS_POST_ID = #{sysPostId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select SYS_POST_ID, SYS_POST_CODE, SYS_POST_NAME, SYS_POST_TYPE, SYS_POST_DESC, INIT_FLAG, 
+    ORG_ID, REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+    UPDATE_DATE, UPDATE_STAFF
+    from system_post
+    where SYS_POST_ID = #{sysPostId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select SYS_POST_ID, SYS_POST_CODE, SYS_POST_NAME, SYS_POST_TYPE, SYS_POST_DESC, INIT_FLAG, 
+    ORG_ID, REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+    UPDATE_DATE, UPDATE_STAFF
+    from system_post
+  </select>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.SystemRolesMapper" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.SystemRoles" >
+    <id column="SYS_ROLE_ID" property="sysRoleId" jdbcType="DECIMAL" />
+    <result column="SYS_ROLE_NAME" property="sysRoleName" jdbcType="VARCHAR" />
+    <result column="SYS_ROLE_CODE" property="sysRoleCode" jdbcType="VARCHAR" />
+    <result column="SYS_ROLE_TYPE" property="sysRoleType" jdbcType="VARCHAR" />
+    <result column="SYS_ROLE_DESC" property="sysRoleDesc" jdbcType="VARCHAR" />
+    <result column="INIT_FLAG" property="initFlag" jdbcType="DECIMAL" />
+    <result column="REGION_ID" property="regionId" jdbcType="DECIMAL" />
+    <result column="SYSTEM_INFO_ID" property="systemInfoId" jdbcType="DECIMAL" />
+    <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR" />
+    <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_roles
+    where SYS_ROLE_ID = #{sysRoleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.asiainfo.bill.model.SystemRoles" >
+    insert into system_roles (SYS_ROLE_ID, SYS_ROLE_NAME, SYS_ROLE_CODE, 
+      SYS_ROLE_TYPE, SYS_ROLE_DESC, INIT_FLAG, 
+      REGION_ID, SYSTEM_INFO_ID, STATUS_CD, 
+      STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+      UPDATE_DATE, UPDATE_STAFF)
+    values (#{sysRoleId,jdbcType=DECIMAL}, #{sysRoleName,jdbcType=VARCHAR}, #{sysRoleCode,jdbcType=VARCHAR}, 
+      #{sysRoleType,jdbcType=VARCHAR}, #{sysRoleDesc,jdbcType=VARCHAR}, #{initFlag,jdbcType=DECIMAL}, 
+      #{regionId,jdbcType=DECIMAL}, #{systemInfoId,jdbcType=DECIMAL}, #{statusCd,jdbcType=VARCHAR}, 
+      #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.SystemRoles" >
+    update system_roles
+    set SYS_ROLE_NAME = #{sysRoleName,jdbcType=VARCHAR},
+      SYS_ROLE_CODE = #{sysRoleCode,jdbcType=VARCHAR},
+      SYS_ROLE_TYPE = #{sysRoleType,jdbcType=VARCHAR},
+      SYS_ROLE_DESC = #{sysRoleDesc,jdbcType=VARCHAR},
+      INIT_FLAG = #{initFlag,jdbcType=DECIMAL},
+      REGION_ID = #{regionId,jdbcType=DECIMAL},
+      SYSTEM_INFO_ID = #{systemInfoId,jdbcType=DECIMAL},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where SYS_ROLE_ID = #{sysRoleId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select SYS_ROLE_ID, SYS_ROLE_NAME, SYS_ROLE_CODE, SYS_ROLE_TYPE, SYS_ROLE_DESC, INIT_FLAG, 
+    REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+    UPDATE_STAFF
+    from system_roles
+    where SYS_ROLE_ID = #{sysRoleId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select SYS_ROLE_ID, SYS_ROLE_NAME, SYS_ROLE_CODE, SYS_ROLE_TYPE, SYS_ROLE_DESC, INIT_FLAG, 
+    REGION_ID, SYSTEM_INFO_ID, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+    UPDATE_STAFF
+    from system_roles
+  </select>
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:spring-zext-web="http://www.asiainfo-linkage.com/schema/spring-zext-web"
+	   xmlns:spring-zext-service="http://www.asiainfo-linkage.com/schema/spring-zext-service"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.asiainfo-linkage.com/schema/spring-zext-web http://www.asiainfo-linkage.com/schema/spring-zext-web.xsd
+        http://www.asiainfo-linkage.com/schema/spring-zext-service http://www.asiainfo-linkage.com/schema/spring-zext-service.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 对标注 @Autowired 的 Bean 进行自动注入初始化bean的时候会自动装载 -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<context:annotation-config/>
+	<context:component-scan base-package="com.asiainfo">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+
+
+	<!-- 注册解析注解的处理器  -->
+	<aop:config proxy-target-class="true"></aop:config>
+	<aop:aspectj-autoproxy/>
+
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<!--
+            <mvc:exclude-mapping path="/user/index"/>
+            -->
+			<bean class="com.interceptor.HeaderInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<bean id="sendMqJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="orderController" />
+		</property>
+		<property name="targetMethod">
+			<value>scanTable</value>
+		</property>
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<value></value> <!--remind_serv_id取模数 -->
+				<value></value> <!--取模结果值-->
+				<value></value> <!--state-->
+				<value>!('JLJF000023','JLJF000016')</value> <!--remindCode-->
+			</list>
+		</property>
+	</bean>
+	<bean id="sendMqTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendMqJob" />
+		</property>
+		<property name="cronExpression">
+			<value>*/1 * * * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="sendMqJob_1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="orderController" />
+		</property>
+		<property name="targetMethod">
+			<value>scanTable</value>
+		</property>
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<value></value> <!--remind_serv_id取模数 -->
+				<value></value> <!--取模结果值-->
+				<value></value> <!--state-->
+				<value>('JLJF000023','JLJF000016')</value> <!--remindCode-->
+			</list>
+		</property>
+	</bean>
+	<bean id="sendMqTime_1" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendMqJob_1" />
+		</property>
+		<property name="cronExpression">
+			<value>*/10 * * * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="sfb" lazy-init="true" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- 实时发送短信 -->
+				<ref bean="sendMqTime" />
+				<!--非实时发送短信-->
+				<ref bean="sendMqTime_1" />
+			</list>
+		</property>
+		<property name="quartzProperties">
+			<props>
+				<!-- 主要是这个参数 -->
+				<prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

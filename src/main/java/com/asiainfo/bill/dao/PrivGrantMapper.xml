@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.PrivGrantMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.PrivGrant">
+        <id column="PRIV_GRANT_ID" property="privGrantId" jdbcType="DECIMAL"/>
+        <result column="PRIV_ID" property="privId" jdbcType="DECIMAL"/>
+        <result column="MANAGE_CLASS" property="manageClass" jdbcType="VARCHAR"/>
+        <result column="GRANT_OBJ_TYPE" property="grantObjType" jdbcType="VARCHAR"/>
+        <result column="GRANT_OBJ_ID" property="grantObjId" jdbcType="DECIMAL"/>
+        <result column="OPER_TYPE" property="operType" jdbcType="VARCHAR"/>
+        <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP"/>
+        <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+        <result column="PAR_PRIV_ID" property="parPrivId" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from priv_grant
+    where PRIV_GRANT_ID = #{privGrantId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.PrivGrant">
+    insert into priv_grant (PRIV_GRANT_ID, PRIV_ID, MANAGE_CLASS, 
+      GRANT_OBJ_TYPE, GRANT_OBJ_ID, OPER_TYPE, 
+      EFF_DATE, EXP_DATE, STATUS_CD, 
+      STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+      UPDATE_DATE, UPDATE_STAFF, PAR_PRIV_ID
+      )
+    values (#{privGrantId,jdbcType=DECIMAL}, #{privId,jdbcType=DECIMAL}, #{manageClass,jdbcType=VARCHAR}, 
+      #{grantObjType,jdbcType=VARCHAR}, #{grantObjId,jdbcType=DECIMAL}, #{operType,jdbcType=VARCHAR}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{statusCd,jdbcType=VARCHAR}, 
+      #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL}, #{parPrivId,jdbcType=DECIMAL}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.PrivGrant">
+    update priv_grant
+    set PRIV_ID = #{privId,jdbcType=DECIMAL},
+      MANAGE_CLASS = #{manageClass,jdbcType=VARCHAR},
+      GRANT_OBJ_TYPE = #{grantObjType,jdbcType=VARCHAR},
+      GRANT_OBJ_ID = #{grantObjId,jdbcType=DECIMAL},
+      OPER_TYPE = #{operType,jdbcType=VARCHAR},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL},
+      PAR_PRIV_ID = #{parPrivId,jdbcType=DECIMAL}
+    where PRIV_GRANT_ID = #{privGrantId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select PRIV_GRANT_ID, PRIV_ID, MANAGE_CLASS, GRANT_OBJ_TYPE, GRANT_OBJ_ID, OPER_TYPE, 
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+    UPDATE_STAFF, PAR_PRIV_ID
+    from priv_grant
+    where PRIV_GRANT_ID = #{privGrantId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByPrivId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select PRIV_GRANT_ID, PRIV_ID, MANAGE_CLASS, GRANT_OBJ_TYPE, GRANT_OBJ_ID, OPER_TYPE,
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE,
+    UPDATE_STAFF, PAR_PRIV_ID
+    from priv_grant
+    where PRIV_ID = #{privId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select PRIV_GRANT_ID, PRIV_ID, MANAGE_CLASS, GRANT_OBJ_TYPE, GRANT_OBJ_ID, OPER_TYPE, 
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+    UPDATE_STAFF, PAR_PRIV_ID
+    from priv_grant
+  </select>
+</mapper>

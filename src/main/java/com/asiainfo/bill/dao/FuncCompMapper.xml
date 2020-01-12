@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.FuncCompMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.FuncComp">
+        <id column="COMP_ID" property="compId" jdbcType="DECIMAL"/>
+        <result column="COMP_NAME" property="compName" jdbcType="VARCHAR"/>
+        <result column="COMP_TYPE" property="compType" jdbcType="VARCHAR"/>
+        <result column="COMP_DESC" property="compDesc" jdbcType="VARCHAR"/>
+        <result column="URL_ADDR" property="urlAddr" jdbcType="VARCHAR"/>
+        <result column="MENU_ID" property="menuId" jdbcType="DECIMAL"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from func_comp
+    where COMP_ID = #{compId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.FuncComp">
+    insert into func_comp (COMP_ID, COMP_NAME, COMP_TYPE, 
+      COMP_DESC, URL_ADDR, MENU_ID, 
+      STATUS_CD, STATUS_DATE, CREATE_DATE, 
+      CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+      )
+    values (#{compId,jdbcType=DECIMAL}, #{compName,jdbcType=VARCHAR}, #{compType,jdbcType=VARCHAR}, 
+      #{compDesc,jdbcType=VARCHAR}, #{urlAddr,jdbcType=VARCHAR}, #{menuId,jdbcType=DECIMAL}, 
+      #{statusCd,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createStaff,jdbcType=DECIMAL}, #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.FuncComp">
+    update func_comp
+    set COMP_NAME = #{compName,jdbcType=VARCHAR},
+      COMP_TYPE = #{compType,jdbcType=VARCHAR},
+      COMP_DESC = #{compDesc,jdbcType=VARCHAR},
+      URL_ADDR = #{urlAddr,jdbcType=VARCHAR},
+      MENU_ID = #{menuId,jdbcType=DECIMAL},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where COMP_ID = #{compId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select COMP_ID, COMP_NAME, COMP_TYPE, COMP_DESC, URL_ADDR, MENU_ID, STATUS_CD, STATUS_DATE, 
+    CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from func_comp
+    where COMP_ID = #{compId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByMenuId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select COMP_ID, COMP_NAME, COMP_TYPE, COMP_DESC, URL_ADDR, MENU_ID, STATUS_CD, STATUS_DATE,
+    CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from func_comp
+    where MENU_ID = #{menuId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select COMP_ID, COMP_NAME, COMP_TYPE, COMP_DESC, URL_ADDR, MENU_ID, STATUS_CD, STATUS_DATE, 
+    CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from func_comp
+  </select>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.SystemUserMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.SystemUser">
+        <id column="SYS_USER_ID" property="sysUserId" jdbcType="DECIMAL"/>
+        <result column="STAFF_ID" property="staffId" jdbcType="DECIMAL"/>
+        <result column="SYS_USER_CODE" property="sysUserCode" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="PWD_ERR_CNT" property="pwdErrCnt" jdbcType="DECIMAL"/>
+        <result column="PWD_SMS_TEL" property="pwdSmsTel" jdbcType="DECIMAL"/>
+        <result column="PWD_STATUS" property="pwdStatus" jdbcType="VARCHAR"/>
+        <result column="PWD_NEWTIME" property="pwdNewtime" jdbcType="TIMESTAMP"/>
+        <result column="PWD_EFFECT_DAYS" property="pwdEffectDays" jdbcType="DECIMAL"/>
+        <result column="REGION_ID" property="regionId" jdbcType="DECIMAL"/>
+        <result column="SYSTEM_INFO_ID" property="systemInfoId" jdbcType="DECIMAL"/>
+        <result column="LIMIT_COUNT" property="limitCount" jdbcType="DECIMAL"/>
+        <result column="LOGINED_NUM" property="loginedNum" jdbcType="DECIMAL"/>
+        <result column="SYS_USER_DESC" property="sysUserDesc" jdbcType="VARCHAR"/>
+        <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP"/>
+        <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_user
+    where SYS_USER_ID = #{sysUserId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.SystemUser">
+    insert into system_user (SYS_USER_ID, STAFF_ID, SYS_USER_CODE, 
+      PASSWORD, PWD_ERR_CNT, PWD_SMS_TEL, 
+      PWD_STATUS, PWD_NEWTIME, PWD_EFFECT_DAYS, 
+      REGION_ID, SYSTEM_INFO_ID, LIMIT_COUNT, 
+      LOGINED_NUM, SYS_USER_DESC, EFF_DATE, 
+      EXP_DATE, STATUS_CD, STATUS_DATE, 
+      CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+      UPDATE_STAFF)
+    values (#{sysUserId,jdbcType=DECIMAL}, #{staffId,jdbcType=DECIMAL}, #{sysUserCode,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{pwdErrCnt,jdbcType=DECIMAL}, #{pwdSmsTel,jdbcType=DECIMAL}, 
+      #{pwdStatus,jdbcType=VARCHAR}, #{pwdNewtime,jdbcType=TIMESTAMP}, #{pwdEffectDays,jdbcType=DECIMAL}, 
+      #{regionId,jdbcType=DECIMAL}, #{systemInfoId,jdbcType=DECIMAL}, #{limitCount,jdbcType=DECIMAL}, 
+      #{loginedNum,jdbcType=DECIMAL}, #{sysUserDesc,jdbcType=VARCHAR}, #{effDate,jdbcType=TIMESTAMP}, 
+      #{expDate,jdbcType=TIMESTAMP}, #{statusCd,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateStaff,jdbcType=DECIMAL})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.SystemUser">
+    update system_user
+    set STAFF_ID = #{staffId,jdbcType=DECIMAL},
+      SYS_USER_CODE = #{sysUserCode,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PWD_ERR_CNT = #{pwdErrCnt,jdbcType=DECIMAL},
+      PWD_SMS_TEL = #{pwdSmsTel,jdbcType=DECIMAL},
+      PWD_STATUS = #{pwdStatus,jdbcType=VARCHAR},
+      PWD_NEWTIME = #{pwdNewtime,jdbcType=TIMESTAMP},
+      PWD_EFFECT_DAYS = #{pwdEffectDays,jdbcType=DECIMAL},
+      REGION_ID = #{regionId,jdbcType=DECIMAL},
+      SYSTEM_INFO_ID = #{systemInfoId,jdbcType=DECIMAL},
+      LIMIT_COUNT = #{limitCount,jdbcType=DECIMAL},
+      LOGINED_NUM = #{loginedNum,jdbcType=DECIMAL},
+      SYS_USER_DESC = #{sysUserDesc,jdbcType=VARCHAR},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where SYS_USER_ID = #{sysUserId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_USER_ID, STAFF_ID, SYS_USER_CODE, PASSWORD, PWD_ERR_CNT, PWD_SMS_TEL, 
+    PWD_STATUS, PWD_NEWTIME, PWD_EFFECT_DAYS, REGION_ID, SYSTEM_INFO_ID, LIMIT_COUNT, 
+    LOGINED_NUM, SYS_USER_DESC, EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, 
+    CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_user
+    where SYS_USER_ID = #{sysUserId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_USER_ID, STAFF_ID, SYS_USER_CODE, PASSWORD, PWD_ERR_CNT, PWD_SMS_TEL,
+    PWD_STATUS, PWD_NEWTIME, PWD_EFFECT_DAYS, REGION_ID, SYSTEM_INFO_ID, LIMIT_COUNT,
+    LOGINED_NUM, SYS_USER_DESC, EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE,
+    CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_user
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select SYS_USER_ID, STAFF_ID, SYS_USER_CODE, PASSWORD, PWD_ERR_CNT, PWD_SMS_TEL, 
+    PWD_STATUS, PWD_NEWTIME, PWD_EFFECT_DAYS, REGION_ID, SYSTEM_INFO_ID, LIMIT_COUNT, 
+    LOGINED_NUM, SYS_USER_DESC, EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, 
+    CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF
+    from system_user
+  </select>
+</mapper>

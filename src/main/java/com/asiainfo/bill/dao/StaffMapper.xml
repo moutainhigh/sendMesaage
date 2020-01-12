@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.StaffMapper" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.Staff" >
+    <id column="STAFF_ID" property="staffId" jdbcType="DECIMAL" />
+    <result column="PARTY_ID" property="partyId" jdbcType="DECIMAL" />
+    <result column="STAFF_CODE" property="staffCode" jdbcType="VARCHAR" />
+    <result column="STAFF_ACCOUNT" property="staffAccount" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="STAFF_TYPE" property="staffType" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="STAFF_DESC" property="staffDesc" jdbcType="VARCHAR" />
+    <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR" />
+    <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL" />
+    <result column="SALESSTAFF_CODE" property="salesstaffCode" jdbcType="VARCHAR" />
+    <result column="COMMON_REGION_ID" property="commonRegionId" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from staff
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.asiainfo.bill.model.Staff" >
+    insert into staff (STAFF_ID, PARTY_ID, STAFF_CODE, 
+      STAFF_ACCOUNT, ORG_ID, STAFF_TYPE, 
+      STAFF_NAME, STAFF_DESC, STATUS_CD, 
+      STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+      UPDATE_DATE, UPDATE_STAFF, SALESSTAFF_CODE, 
+      COMMON_REGION_ID)
+    values (#{staffId,jdbcType=DECIMAL}, #{partyId,jdbcType=DECIMAL}, #{staffCode,jdbcType=VARCHAR}, 
+      #{staffAccount,jdbcType=VARCHAR}, #{orgId,jdbcType=DECIMAL}, #{staffType,jdbcType=VARCHAR}, 
+      #{staffName,jdbcType=VARCHAR}, #{staffDesc,jdbcType=VARCHAR}, #{statusCd,jdbcType=VARCHAR}, 
+      #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL}, #{salesstaffCode,jdbcType=VARCHAR}, 
+      #{commonRegionId,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.Staff" >
+    update staff
+    set PARTY_ID = #{partyId,jdbcType=DECIMAL},
+      STAFF_CODE = #{staffCode,jdbcType=VARCHAR},
+      STAFF_ACCOUNT = #{staffAccount,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=DECIMAL},
+      STAFF_TYPE = #{staffType,jdbcType=VARCHAR},
+      STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      STAFF_DESC = #{staffDesc,jdbcType=VARCHAR},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL},
+      SALESSTAFF_CODE = #{salesstaffCode,jdbcType=VARCHAR},
+      COMMON_REGION_ID = #{commonRegionId,jdbcType=DECIMAL}
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select STAFF_ID, PARTY_ID, STAFF_CODE, STAFF_ACCOUNT, ORG_ID, STAFF_TYPE, STAFF_NAME, 
+    STAFF_DESC, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF, 
+    SALESSTAFF_CODE, COMMON_REGION_ID
+    from staff
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select STAFF_ID, PARTY_ID, STAFF_CODE, STAFF_ACCOUNT, ORG_ID, STAFF_TYPE, STAFF_NAME, 
+    STAFF_DESC, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, UPDATE_STAFF, 
+    SALESSTAFF_CODE, COMMON_REGION_ID
+    from staff
+  </select>
+</mapper>

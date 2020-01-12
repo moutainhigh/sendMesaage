@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.bill.dao.SystemUserPostMapper">
+    <resultMap id="BaseResultMap" type="com.asiainfo.bill.model.SystemUserPost">
+        <id column="SYS_USER_POST_ID" property="sysUserPostId" jdbcType="DECIMAL"/>
+        <result column="SYS_USER_ID" property="sysUserId" jdbcType="DECIMAL"/>
+        <result column="SYS_POST_ID" property="sysPostId" jdbcType="DECIMAL"/>
+        <result column="ORG_ID" property="orgId" jdbcType="DECIMAL"/>
+        <result column="DEFAULT_FLAG" property="defaultFlag" jdbcType="DECIMAL"/>
+        <result column="HOST_FLAG" property="hostFlag" jdbcType="DECIMAL"/>
+        <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP"/>
+        <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP"/>
+        <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR"/>
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_STAFF" property="createStaff" jdbcType="DECIMAL"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_STAFF" property="updateStaff" jdbcType="DECIMAL"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_user_post
+    where SYS_USER_POST_ID = #{sysUserPostId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.asiainfo.bill.model.SystemUserPost">
+    insert into system_user_post (SYS_USER_POST_ID, SYS_USER_ID, SYS_POST_ID, 
+      ORG_ID, DEFAULT_FLAG, HOST_FLAG, 
+      EFF_DATE, EXP_DATE, STATUS_CD, 
+      STATUS_DATE, CREATE_DATE, CREATE_STAFF, 
+      UPDATE_DATE, UPDATE_STAFF)
+    values (#{sysUserPostId,jdbcType=DECIMAL}, #{sysUserId,jdbcType=DECIMAL}, #{sysPostId,jdbcType=DECIMAL}, 
+      #{orgId,jdbcType=DECIMAL}, #{defaultFlag,jdbcType=DECIMAL}, #{hostFlag,jdbcType=DECIMAL}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{statusCd,jdbcType=VARCHAR}, 
+      #{statusDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{createStaff,jdbcType=DECIMAL}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=DECIMAL})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.asiainfo.bill.model.SystemUserPost">
+    update system_user_post
+    set SYS_USER_ID = #{sysUserId,jdbcType=DECIMAL},
+      SYS_POST_ID = #{sysPostId,jdbcType=DECIMAL},
+      ORG_ID = #{orgId,jdbcType=DECIMAL},
+      DEFAULT_FLAG = #{defaultFlag,jdbcType=DECIMAL},
+      HOST_FLAG = #{hostFlag,jdbcType=DECIMAL},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_STAFF = #{createStaff,jdbcType=DECIMAL},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=DECIMAL}
+    where SYS_USER_POST_ID = #{sysUserPostId,jdbcType=DECIMAL}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_USER_POST_ID, SYS_USER_ID, SYS_POST_ID, ORG_ID, DEFAULT_FLAG, HOST_FLAG, 
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+    UPDATE_STAFF
+    from system_user_post
+    where SYS_USER_POST_ID = #{sysUserPostId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectBySysPostId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_USER_POST_ID, SYS_USER_ID, SYS_POST_ID, ORG_ID, DEFAULT_FLAG, HOST_FLAG,
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE,
+    UPDATE_STAFF
+    from system_user_post
+    where SYS_POST_ID = #{sysPostId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectBySysUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select SYS_USER_POST_ID, SYS_USER_ID, SYS_POST_ID, ORG_ID, DEFAULT_FLAG, HOST_FLAG,
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE,
+    UPDATE_STAFF
+    from system_user_post
+    where SYS_USER_ID = #{sysUserId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select SYS_USER_POST_ID, SYS_USER_ID, SYS_POST_ID, ORG_ID, DEFAULT_FLAG, HOST_FLAG, 
+    EFF_DATE, EXP_DATE, STATUS_CD, STATUS_DATE, CREATE_DATE, CREATE_STAFF, UPDATE_DATE, 
+    UPDATE_STAFF
+    from system_user_post
+  </select>
+</mapper>
