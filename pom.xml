@@ -21,7 +21,7 @@
 
         <codegenerate.version>3.6.3</codegenerate.version>
 
-        <spring.version>3.2.9.RELEASE</spring.version>
+        <spring.version>5.2.2.RELEASE</spring.version>
         <!-- 辅助依赖包 -->
         <cglib.version>2.2</cglib.version>
         <aspectj.version>1.6.9</aspectj.version>
